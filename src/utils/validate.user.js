@@ -1,11 +1,10 @@
 import { findOneUserByUsername } from "./find.user.js";
 
-export function validateUser(name, username, password, confirm_password) {
+export async function validateUser(name, username, password, confirm_password) {
     const errors = {};
     const nameRegex = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     const usernameRegex = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
-    const user = findOneUserByUsername(username);
-    console.log('YOOO', user)
+    const user = await findOneUserByUsername(username);
 
     if (!name.trim()) {
         errors.name = 'Ingrese un nombre';
@@ -26,9 +25,9 @@ export function validateUser(name, username, password, confirm_password) {
     if (!usernameRegex.test(username)) {
         errors.username = 'Ingrese un usuario valido';
     }
-    // if (user) {
-    //     errors.username = 'Ya existe el usuario';
-    // }
+    if (user) {
+        errors.username = 'Ya existe el usuario';
+    }
 
     if (!password) {
         errors.password = "Ingrese una contraseña";
