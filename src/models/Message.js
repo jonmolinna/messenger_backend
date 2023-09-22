@@ -6,7 +6,7 @@ const messageSchema = mongoose.Schema({
         trim: true,
     },
     username: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
     }
 }, { timestamps: true, versionKey: false });

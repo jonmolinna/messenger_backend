@@ -24,3 +24,15 @@ export const createMessage = async (req, res) => {
         return res.json({ message: 'Error', errors: err })
     }
 };
+
+// Obtener Messages
+export const getAllMessages = async (req, res) => {
+    try {
+        const messages = await Message.find().populate('username', '-password');
+
+        return res.json({ messages })
+
+    } catch (err) {
+        return res.json({ message: 'Error', errors: err })
+    }
+};
