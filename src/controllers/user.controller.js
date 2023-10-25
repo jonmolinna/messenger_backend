@@ -16,9 +16,10 @@ export const createUser = async (req, res) => {
         let hash_password = await bcrypt.hash(password, 6);
 
         const usuario = await User.create({ name, username, password: hash_password });
-        return res.json({ message: 'Creado con exito', user: usuario })
+        const data = { name: usuario.name, username: usuario.username, _id: usuario._id }
+        return res.json({ message: 'Creado con exito', user: data })
 
     } catch (err) {
-        return res.json({ message: 'Error', errors: err })
+        return res.status(400).json({ message: 'Error', errors: err })
     }
 }

@@ -18,7 +18,7 @@ function verifyToken(req, res, next) {
         req.id_user_token = _id;
 
     } catch (err) {
-        return res.json({
+        return res.status(401).json({
             auth: false,
             errors: err,
         })

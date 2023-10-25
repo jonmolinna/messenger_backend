@@ -6,7 +6,7 @@ export async function validateAuth(username, password) {
     const user = await findOneUserByUsername(username);
 
     if (!username.trim()) {
-        errors.username = 'Ingrese un username';
+        errors.username = 'Ingrese un usuario';
     };
 
     if (!password) {
@@ -17,7 +17,11 @@ export async function validateAuth(username, password) {
         errors.message = 'Credenciales Incorrectas';
     }
 
-    const is_password = await bcrypt.compare(password, user?.password);
+    let is_password = '';
+
+    if (password && user) {
+        is_password = await bcrypt.compare(password, user?.password);
+    }
 
     if (!is_password) {
         errors.message = 'Credenciales Incorrectas';
