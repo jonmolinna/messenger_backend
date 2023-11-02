@@ -28,7 +28,7 @@ export const createMessage = async (req, res) => {
 // Obtener Messages
 export const getAllMessages = async (req, res) => {
     try {
-        const messages = await Message.find().populate('username', '-password');
+        const messages = await Message.find().populate('username', '-password').sort({ createdAt: -1 })
 
         return res.json({ messages })
 
